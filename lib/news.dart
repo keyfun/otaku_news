@@ -1,19 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:feedparser/feedparser.dart';
-import 'package:http/http.dart';
-
-// https://news.gamme.com.tw/feed
-// https://news.gamme.com.tw/category/movies/feed
-// https://news.gamme.com.tw/category/hotchick/feed
-// https://news.gamme.com.tw/category/anime/feed
+import 'rss.dart';
 
 class Item {
-  Item(this.title, this.description, this.link, this.date);
-
   final String title;
   final String description;
   final String link;
   final String date;
+
+  Item(this.title, this.description, this.link, this.date);
 }
 
 typedef void OnTapCallback(Item item);
@@ -62,8 +57,6 @@ class NewsList extends StatefulWidget {
 }
 
 class _NewsListState extends State<NewsList> {
-  Set<Item> _items = Set<Item>();
-
   void _handleOnTap(Item item) {
     setState(() {
       // goto details page
@@ -90,17 +83,17 @@ class _NewsListState extends State<NewsList> {
   }
 }
 
-// test Data
-final List<Item> data = <Item>[
-  Item('AAA', 'BBB', 'CCC', 'DDD'),
-  Item('AAA', 'BBB', 'CCC', 'DDD'),
-  Item('AAA', 'BBB', 'CCC', 'DDD'),
-  Item('AAA', 'BBB', 'CCC', 'DDD'),
-  Item('AAA', 'BBB', 'CCC', 'DDD'),
-  Item('AAA', 'BBB', 'CCC', 'DDD'),
-];
-
 class NewsApp extends StatelessWidget {
+  List<Item> _getItems(List<FeedItem> items) {
+    List<Item> newItems = List<Item>();
+    items.forEach((feedItem) {
+      Item item = Item(feedItem.title, feedItem.description, feedItem.link,
+          feedItem.pubDate);
+      newItems.add(item);
+    });
+    return newItems;
+  }
+
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
@@ -108,7 +101,19 @@ class NewsApp extends StatelessWidget {
       theme: new ThemeData(
         primarySwatch: Colors.green,
       ),
-      home: NewsList(items: data),
+      home: FutureBuilder<RssFeed>(
+        future: fetchRssFeed(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            // print(snapshot.data.feed.items);
+            return NewsList(items: _getItems(snapshot.data.feed.items));
+          } else if (snapshot.hasError) {
+            return Text("${snapshot.error}");
+          }
+          // By default, show a loading spinner
+          return new Center(child: CircularProgressIndicator());
+        },
+      ),
     );
   }
 }
