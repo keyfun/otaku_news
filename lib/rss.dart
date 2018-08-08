@@ -26,10 +26,8 @@ Future<RssFeed> fetchRssFeed() async {
       await http.get(url);
   if (response.statusCode == 200) {
     String result = convert.utf8.decode(response.bodyBytes);
-    // If server returns an OK response, parse the XML
     return RssFeed.fromXml(result);
   } else {
-    // If that response was not OK, throw an error.
     throw Exception('Failed to load post');
   }
 }
