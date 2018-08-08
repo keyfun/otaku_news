@@ -1,10 +1,7 @@
 import 'dart:async';
-import 'dart:io';
 import 'dart:convert' as convert;
 import 'package:http/http.dart' as http;
 import 'package:feedparser/feedparser.dart';
-import 'package:xml/xml.dart' as xml;
-import 'package:xml2json/xml2json.dart';
 
 // https://news.gamme.com.tw/feed
 // https://news.gamme.com.tw/category/movies/feed
@@ -24,20 +21,13 @@ class RssFeed {
 }
 
 Future<RssFeed> fetchRssFeed() async {
-  final Map<String, String> headers = {
-    HttpHeaders.CONTENT_TYPE: 'application/rss+xml; charset=utf-8'
-  };
-
+  final String url = 'https://news.gamme.com.tw/feed';
   final response =
-      await http.get('https://news.gamme.com.tw/feed', headers: headers);
+      await http.get(url);
   if (response.statusCode == 200) {
-    // print(response.headers);
-    // final Xml2Json myTransformer = new Xml2Json();
-    // myTransformer.parse(response.body);
-    // String json = myTransformer.toGData();
-    // print(json);
+    String result = convert.utf8.decode(response.bodyBytes);
     // If server returns an OK response, parse the XML
-    return RssFeed.fromXml(response.body);
+    return RssFeed.fromXml(result);
   } else {
     // If that response was not OK, throw an error.
     throw Exception('Failed to load post');
