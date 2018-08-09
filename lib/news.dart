@@ -1,15 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:feedparser/feedparser.dart';
 import 'rss.dart';
-
-class Item {
-  final String title;
-  final String description;
-  final String link;
-  final String date;
-
-  Item(this.title, this.description, this.link, this.date);
-}
+import 'detail.dart';
+import 'item.dart';
 
 typedef void OnTapCallback(Item item);
 
@@ -27,7 +20,7 @@ class NewsListItem extends StatelessWidget {
 
   TextStyle _getTextStyle(BuildContext context) {
     return TextStyle(
-      color: Colors.black54,
+      color: Colors.black,
       decoration: TextDecoration.none,
     );
   }
@@ -42,7 +35,8 @@ class NewsListItem extends StatelessWidget {
         backgroundColor: _getColor(context),
         child: Text(item.title[0]),
       ),
-      title: Text(item.title, style: _getTextStyle(context)),
+      title: Text(item.title, style: _getTextStyle(context), textScaleFactor: 1.2),
+      contentPadding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
     );
   }
 }
@@ -59,16 +53,25 @@ class NewsList extends StatefulWidget {
 class _NewsListState extends State<NewsList> {
   void _handleOnTap(Item item) {
     setState(() {
-      // goto details page
-      print(item.title);
+      _gotoDetail(item);
     });
+  }
+
+  void _gotoDetail(Item item) {
+    print(item.title);
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => DetailScreen(item: item)),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text('宅宅新聞'),
+        // backgroundColor: Colors.black,
       ),
       body: ListView(
         padding: EdgeInsets.symmetric(vertical: 8.0),
@@ -99,7 +102,7 @@ class NewsApp extends StatelessWidget {
     return new MaterialApp(
       title: 'Otaku News',
       theme: new ThemeData(
-        primarySwatch: Colors.green,
+        primarySwatch: Colors.red,
       ),
       home: FutureBuilder<RssFeed>(
         future: fetchRssFeed(),

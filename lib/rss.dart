@@ -22,8 +22,7 @@ class RssFeed {
 
 Future<RssFeed> fetchRssFeed() async {
   final String url = 'https://news.gamme.com.tw/feed';
-  final response =
-      await http.get(url);
+  final response = await http.get(url);
   if (response.statusCode == 200) {
     String result = convert.utf8.decode(response.bodyBytes);
     return RssFeed.fromXml(result);
