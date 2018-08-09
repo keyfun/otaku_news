@@ -6,11 +6,11 @@ class _DetailScreenState extends State<DetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.item.title),
-      ),
+      // appBar: AppBar(
+      //   title: Text(widget.item.title),
+      // ),
       body: Center(
-        child: new WebView(item: widget.item,),
+        child: new WebView(item: widget.item),
       ),
     );
   }

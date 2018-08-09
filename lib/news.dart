@@ -35,7 +35,8 @@ class NewsListItem extends StatelessWidget {
         backgroundColor: _getColor(context),
         child: Text(item.title[0]),
       ),
-      title: Text(item.title, style: _getTextStyle(context), textScaleFactor: 1.2),
+      title:
+          Text(item.title, style: _getTextStyle(context), textScaleFactor: 1.2),
       contentPadding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
     );
   }
@@ -71,7 +72,6 @@ class _NewsListState extends State<NewsList> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text('宅宅新聞'),
-        // backgroundColor: Colors.black,
       ),
       body: ListView(
         padding: EdgeInsets.symmetric(vertical: 8.0),
@@ -100,7 +100,6 @@ class NewsApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
-      title: 'Otaku News',
       theme: new ThemeData(
         primarySwatch: Colors.red,
       ),
