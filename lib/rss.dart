@@ -1,12 +1,7 @@
-import 'dart:async';
-import 'dart:convert' as convert;
 import 'package:http/http.dart' as http;
 import 'package:feedparser/feedparser.dart';
-
-// https://news.gamme.com.tw/feed
-// https://news.gamme.com.tw/category/movies/feed
-// https://news.gamme.com.tw/category/hotchick/feed
-// https://news.gamme.com.tw/category/anime/feed
+import 'dart:async';
+import 'dart:convert' as convert;
 
 class RssFeed {
   final Feed feed;
@@ -20,8 +15,7 @@ class RssFeed {
   }
 }
 
-Future<RssFeed> fetchRssFeed() async {
-  final String url = 'https://news.gamme.com.tw/feed';
+Future<RssFeed> fetchRssFeed(String url) async {
   final response = await http.get(url);
   if (response.statusCode == 200) {
     String result = convert.utf8.decode(response.bodyBytes);

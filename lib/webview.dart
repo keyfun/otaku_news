@@ -39,6 +39,7 @@ class _WebViewState extends State<WebView> {
 
   @override
   void dispose() {
+    SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
     // Every listener should be canceled, the same should be done with this stream.
     _onDestroy.cancel();
     _onStateChanged.cancel();
@@ -55,8 +56,7 @@ class _WebViewState extends State<WebView> {
         primarySwatch: Colors.red,
       ),
       routes: {
-        "/": (_) => new Stack(
-          children: <Widget>[
+        "/": (_) => new Stack(children: <Widget>[
               new Center(child: CircularProgressIndicator()),
               new WebviewScaffold(
                 url: widget.item.link,

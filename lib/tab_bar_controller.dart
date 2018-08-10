@@ -1,0 +1,39 @@
+import 'package:flutter/material.dart';
+import 'rss_list.dart';
+
+class TabBarController extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      theme: new ThemeData(
+        primarySwatch: Colors.red,
+      ),
+      home: DefaultTabController(
+        length: 4,
+        child: Scaffold(
+          appBar: AppBar(
+            bottom: TabBar(
+              tabs: [
+                Tab(icon: Icon(Icons.work)),
+                Tab(icon: Icon(Icons.web)),
+                Tab(icon: Icon(Icons.watch)),
+                Tab(icon: Icon(Icons.wifi)),
+              ],
+            ),
+            title: Text('宅宅新聞'),
+          ),
+          body: TabBarView(
+            children: [
+              new RssList(url: "https://news.gamme.com.tw/feed"),
+              new RssList(
+                  url: "https://news.gamme.com.tw/category/movies/feed"),
+              new RssList(
+                  url: "https://news.gamme.com.tw/category/hotchick/feed"),
+              new RssList(url: "https://news.gamme.com.tw/category/anime/feed"),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

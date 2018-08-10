@@ -1,0 +1,40 @@
+import 'package:flutter/material.dart';
+import 'package:feedparser/feedparser.dart';
+import 'rss.dart';
+import 'item.dart';
+import 'news_list.dart';
+
+class RssList extends StatelessWidget {
+  RssList({String url})
+      : url = url,
+        super(key: ObjectKey(url));
+
+  final String url;
+
+  List<Item> _getItems(List<FeedItem> items) {
+    List<Item> newItems = List<Item>();
+    items.forEach((feedItem) {
+      Item item = Item(feedItem.title, feedItem.description, feedItem.link,
+          feedItem.pubDate);
+      newItems.add(item);
+    });
+    return newItems;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<RssFeed>(
+      future: fetchRssFeed(url),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          // print(snapshot.data.feed.items);
+          return NewsList(items: _getItems(snapshot.data.feed.items));
+        } else if (snapshot.hasError) {
+          return Text("${snapshot.error}");
+        }
+        // By default, show a loading spinner
+        return new Center(child: CircularProgressIndicator());
+      },
+    );
+  }
+}

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:feedparser/feedparser.dart';
-import 'rss.dart';
-import 'detail.dart';
 import 'item.dart';
+import 'detail.dart';
 
 typedef void OnTapCallback(Item item);
 
@@ -70,9 +68,6 @@ class _NewsListState extends State<NewsList> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: Text('宅宅新聞'),
-      ),
       body: ListView(
         padding: EdgeInsets.symmetric(vertical: 8.0),
         children: widget.items.map((Item item) {
@@ -81,40 +76,6 @@ class _NewsListState extends State<NewsList> {
             onTapCallback: _handleOnTap,
           );
         }).toList(),
-      ),
-    );
-  }
-}
-
-class NewsApp extends StatelessWidget {
-  List<Item> _getItems(List<FeedItem> items) {
-    List<Item> newItems = List<Item>();
-    items.forEach((feedItem) {
-      Item item = Item(feedItem.title, feedItem.description, feedItem.link,
-          feedItem.pubDate);
-      newItems.add(item);
-    });
-    return newItems;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return new MaterialApp(
-      theme: new ThemeData(
-        primarySwatch: Colors.red,
-      ),
-      home: FutureBuilder<RssFeed>(
-        future: fetchRssFeed(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            // print(snapshot.data.feed.items);
-            return NewsList(items: _getItems(snapshot.data.feed.items));
-          } else if (snapshot.hasError) {
-            return Text("${snapshot.error}");
-          }
-          // By default, show a loading spinner
-          return new Center(child: CircularProgressIndicator());
-        },
       ),
     );
   }
