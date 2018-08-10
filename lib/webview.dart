@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
+import 'package:flutter/services.dart';
 import 'item.dart';
 import 'dart:async';
 
@@ -14,6 +15,7 @@ class _WebViewState extends State<WebView> {
   @override
   void initState() {
     super.initState();
+    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
     flutterWebviewPlugin.close();
 
     _onDestroy = flutterWebviewPlugin.onDestroy.listen((_) {
@@ -53,14 +55,15 @@ class _WebViewState extends State<WebView> {
         primarySwatch: Colors.red,
       ),
       routes: {
-        "/": (_) => new Stack(children: <Widget>[
+        "/": (_) => new Stack(
+          children: <Widget>[
               new Center(child: CircularProgressIndicator()),
               new WebviewScaffold(
                 url: widget.item.link,
-                appBar: new AppBar(
-                  backgroundColor: Colors.red,
-                  title: new Text(widget.item.title),
-                ),
+                // appBar: new AppBar(
+                //   backgroundColor: Colors.red,
+                //   title: new Text(widget.item.title),
+                // ),
                 withLocalStorage: true,
               ),
             ])
