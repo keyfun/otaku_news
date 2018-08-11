@@ -21,6 +21,8 @@ class _WebViewState extends State<WebView> {
       if (mounted) {
         print("WebView onDestroy");
       }
+      // hotfix for disable loader when tap system back button
+      Navigator.pop(context);
     });
 
     _onStateChanged =
@@ -52,9 +54,6 @@ class _WebViewState extends State<WebView> {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
-      theme: new ThemeData(
-        primarySwatch: Colors.red,
-      ),
       routes: {
         "/": (_) => new Stack(children: <Widget>[
               new Center(child: CircularProgressIndicator()),

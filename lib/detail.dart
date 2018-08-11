@@ -5,19 +5,15 @@ import 'dart:async';
 
 class _DetailScreenState extends State<DetailScreen> {
   // handle system back button
-  Future<bool> _onWillPop() async {
-    return true;
+  Future<bool> _onWillPop() {
+    print("onWillPop");
+    return new Future.value(true);
   }
 
   @override
   Widget build(BuildContext context) {
     return new WillPopScope(
-        onWillPop: _onWillPop,
-        child: Scaffold(
-          body: Center(
-            child: new WebView(item: widget.item),
-          ),
-        ));
+        onWillPop: _onWillPop, child: new WebView(item: widget.item));
   }
 }
 
