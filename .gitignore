@@ -10,3 +10,5 @@ build/
 .metadata
 .vscode
 *.log
+key.jks
+key.properties
