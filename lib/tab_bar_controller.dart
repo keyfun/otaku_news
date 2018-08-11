@@ -6,7 +6,7 @@ class TabBarController extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: new ThemeData(
-        primarySwatch: Colors.red,
+        primarySwatch: Colors.blueGrey,
       ),
       home: DefaultTabController(
         length: 4,

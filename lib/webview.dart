@@ -9,7 +9,6 @@ class _WebViewState extends State<WebView> {
   StreamSubscription _onDestroy;
   StreamSubscription<WebViewStateChanged> _onStateChanged;
 
-  final _scaffoldKey = new GlobalKey<ScaffoldState>();
   final _history = [];
 
   @override
@@ -20,8 +19,7 @@ class _WebViewState extends State<WebView> {
 
     _onDestroy = flutterWebviewPlugin.onDestroy.listen((_) {
       if (mounted) {
-        _scaffoldKey.currentState.showSnackBar(
-            const SnackBar(content: const Text('Webview Destroyed')));
+        print("WebView onDestroy");
       }
     });
 
@@ -30,8 +28,10 @@ class _WebViewState extends State<WebView> {
       if (mounted) {
         setState(() {
           print(state.type);
-          if (state.type == WebViewState.finishLoad) {}
-          _history.add('onStateChanged: ${state.type} ${state.url}');
+          if (state.type == WebViewState.finishLoad) {
+            print(state.url);
+            _history.add('onStateChanged: ${state.type} ${state.url}');
+          }
         });
       }
     });
@@ -60,10 +60,6 @@ class _WebViewState extends State<WebView> {
               new Center(child: CircularProgressIndicator()),
               new WebviewScaffold(
                 url: widget.item.link,
-                // appBar: new AppBar(
-                //   backgroundColor: Colors.red,
-                //   title: new Text(widget.item.title),
-                // ),
                 withLocalStorage: true,
               ),
             ])
