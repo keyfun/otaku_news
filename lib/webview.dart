@@ -53,17 +53,24 @@ class _WebViewState extends State<WebView> {
 
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
-      routes: {
-        "/": (_) => new Stack(children: <Widget>[
-              new Center(child: CircularProgressIndicator()),
-              new WebviewScaffold(
-                url: widget.item.link,
-                withLocalStorage: true,
-              ),
-            ])
-      },
-    );
+    if (Theme.of(context).platform == TargetPlatform.iOS) {
+      return new WebviewScaffold(
+        url: widget.item.link,
+        withLocalStorage: true,
+        // iOS only
+        bottomNavigationBar: new FlatButton(
+            padding: EdgeInsets.symmetric(vertical: 20.0),
+            child: new Icon(Icons.backspace),
+            onPressed: () {
+              Navigator.pop(context);
+            }),
+      );
+    } else {
+      return new WebviewScaffold(
+        url: widget.item.link,
+        withLocalStorage: true,
+      );
+    }
   }
 }
 

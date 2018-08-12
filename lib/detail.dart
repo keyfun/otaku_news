@@ -1,19 +1,11 @@
 import 'package:flutter/material.dart';
 import 'item.dart';
 import 'webview.dart';
-import 'dart:async';
 
 class _DetailScreenState extends State<DetailScreen> {
-  // handle system back button
-  Future<bool> _onWillPop() {
-    print("onWillPop");
-    return new Future.value(true);
-  }
-
   @override
   Widget build(BuildContext context) {
-    return new WillPopScope(
-        onWillPop: _onWillPop, child: new WebView(item: widget.item));
+    return new WebView(item: widget.item);
   }
 }
 
