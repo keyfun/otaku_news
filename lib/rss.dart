@@ -1,25 +1,25 @@
 import 'package:http/http.dart' as http;
-import 'package:feedparser/feedparser.dart';
+import 'package:webfeed/webfeed.dart';
 import 'dart:async';
 import 'dart:convert' as convert;
 
-class RssFeed {
-  final Feed feed;
+class MyRssFeed {
+  final RssFeed feed;
 
-  RssFeed({this.feed});
+  MyRssFeed({this.feed});
 
-  factory RssFeed.fromXml(xmlString) {
-    Feed feed = parse(xmlString, strict: true);
+  factory MyRssFeed.fromXml(xmlString) {
+    RssFeed feed = new RssFeed.parse(xmlString);
     // print(feed.items.first);
-    return RssFeed(feed: feed);
+    return MyRssFeed(feed: feed);
   }
 }
 
-Future<RssFeed> fetchRssFeed(String url) async {
+Future<MyRssFeed> fetchRssFeed(String url) async {
   final response = await http.get(url);
   if (response.statusCode == 200) {
     String result = convert.utf8.decode(response.bodyBytes);
-    return RssFeed.fromXml(result);
+    return MyRssFeed.fromXml(result);
   } else {
     throw Exception('Failed to load post');
   }

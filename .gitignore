@@ -12,3 +12,4 @@ build/
 *.log
 key.jks
 key.properties
+ios/Runner.xcworkspace/xcshareddata

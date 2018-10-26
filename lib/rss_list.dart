@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:feedparser/feedparser.dart';
+import 'package:webfeed/webfeed.dart';
 import 'rss.dart';
 import 'item.dart';
 import 'news_list.dart';
@@ -11,7 +11,7 @@ class RssList extends StatelessWidget {
 
   final String url;
 
-  List<Item> _getItems(List<FeedItem> items) {
+  List<Item> _getItems(List<RssItem> items) {
     List<Item> newItems = List<Item>();
     items.forEach((feedItem) {
       Item item = Item(feedItem.title, feedItem.description, feedItem.link,
@@ -23,7 +23,7 @@ class RssList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<RssFeed>(
+    return FutureBuilder<MyRssFeed>(
       future: fetchRssFeed(url),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
