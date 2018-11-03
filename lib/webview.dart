@@ -10,12 +10,17 @@ class _WebViewState extends State<WebView> {
   StreamSubscription<WebViewStateChanged> _onStateChanged;
 
   final _history = [];
+  var currentUrl = "";
 
   @override
   void initState() {
     super.initState();
     SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
     flutterWebviewPlugin.close();
+
+    // flutterWebviewPlugin.onUrlChanged.listen((String url) {
+    //   print("onUrlChanged: $url");
+    // });
 
     _onDestroy = flutterWebviewPlugin.onDestroy.listen((_) {
       if (mounted) {
@@ -29,10 +34,17 @@ class _WebViewState extends State<WebView> {
         flutterWebviewPlugin.onStateChanged.listen((WebViewStateChanged state) {
       if (mounted) {
         setState(() {
-          print(state.type);
-          if (state.type == WebViewState.finishLoad) {
-            print(state.url);
+          print('state.type = ${state.type}');
+          if (state.type == WebViewState.startLoad) {
+            print('startLoad: ${state.url}');
+            // TODO: stop it if same viewing url
+            // if (currentUrl == state.url) {
+            //   flutterWebviewPlugin.stopLoading();
+            // }
+          } else if (state.type == WebViewState.finishLoad) {
+            print('finishLoad: ${state.url}');
             _history.add('onStateChanged: ${state.type} ${state.url}');
+            currentUrl = state.url;
           }
         });
       }
