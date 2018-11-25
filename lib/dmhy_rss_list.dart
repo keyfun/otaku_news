@@ -18,6 +18,7 @@ class DmhyRssList extends StatelessWidget {
     items.forEach((feedItem) {
       Item item = Item(feedItem.title, feedItem.description, feedItem.link,
           feedItem.pubDate);
+          item.enclosureUrl = feedItem.enclosure.url;
       newItems.add(item);
     });
     return newItems;

@@ -10,7 +10,7 @@ class TabBarController extends StatelessWidget {
         primarySwatch: Colors.blueGrey,
       ),
       home: DefaultTabController(
-        length: 6,
+        length: 5,
         child: Scaffold(
           appBar: AppBar(
             bottom: TabBar(
@@ -20,7 +20,6 @@ class TabBarController extends StatelessWidget {
                 Tab(icon: Icon(Icons.watch)),
                 Tab(icon: Icon(Icons.wifi)),
                 Tab(icon: Icon(Icons.file_download)),
-                Tab(icon: Icon(Icons.airplay)),
               ],
             ),
             title: Text('宅宅新聞'),
@@ -33,8 +32,6 @@ class TabBarController extends StatelessWidget {
               new RssList(
                   url: "https://news.gamme.com.tw/category/hotchick/feed"),
               new RssList(url: "https://news.gamme.com.tw/category/anime/feed"),
-              new RssList(
-                  url: "https://share.dmhy.org/topics/rss/sort_id/2/rss.xml"),
               new DmhyRssList(url: dmhy_main_url),
             ],
           ),

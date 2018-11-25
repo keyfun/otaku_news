@@ -6,6 +6,7 @@ dependencies:
     sdk: flutter
   webfeed: ^0.4.0
   flutter_webview_plugin: ^0.2.1+2
+  url_launcher: ^4.0.1
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

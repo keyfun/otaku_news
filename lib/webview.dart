@@ -66,12 +66,18 @@ class _WebViewState extends State<WebView> {
   @override
   Widget build(BuildContext context) {
     if (Theme.of(context).platform == TargetPlatform.iOS) {
+      var mediaQueryData = MediaQuery.of(context);
+      var offsetY = 20.0;
+      if (_isIPhoneX(mediaQueryData)) {
+        offsetY = 40.0;
+      }
+
       return new WebviewScaffold(
         url: widget.item.link,
         withLocalStorage: true,
         // iOS only
         bottomNavigationBar: new FlatButton(
-            padding: EdgeInsets.symmetric(vertical: 20.0),
+            padding: EdgeInsets.symmetric(vertical: offsetY),
             child: new Icon(Icons.backspace),
             onPressed: () {
               Navigator.pop(context);
@@ -83,6 +89,17 @@ class _WebViewState extends State<WebView> {
         withLocalStorage: true,
       );
     }
+  }
+
+  bool _isIPhoneX(MediaQueryData mediaQuery) {
+    if (Theme.of(context).platform == TargetPlatform.iOS) {
+      var size = mediaQuery.size;
+      print('size: $size');
+      if (size.height == 896.0 || size.width == 896.0) {
+        return true;
+      }
+    }
+    return false;
   }
 }
 

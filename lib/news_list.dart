@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'item.dart';
 import 'detail.dart';
+import 'dart:io';
+import 'package:url_launcher/url_launcher.dart';
 
 typedef void OnTapCallback(Item item);
 
@@ -57,11 +59,29 @@ class _NewsListState extends State<NewsList> {
   }
 
   void _gotoDetail(Item item) {
-    print(item.title);
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => DetailScreen(item: item)),
-    );
+    // print('title = ${item.title}');
+    // print('enclosureUrl = ${item.enclosureUrl}');
+    var enclosureUrl = item.enclosureUrl;
+    if (enclosureUrl == null) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => DetailScreen(item: item)),
+      );
+    } else {
+      // open BT App
+      _openBT(enclosureUrl);
+    }
+  }
+
+  _openBT(String url) async {
+    print('openBT = $url');
+    if (Platform.isIOS) {
+      if (await canLaunch(url)) {
+        await launch(url);
+      } else {
+        throw 'Could not launch $url';
+      }
+    }
   }
 
   @override
