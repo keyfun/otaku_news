@@ -18,9 +18,9 @@ class _WebViewState extends State<WebView> {
     SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
     flutterWebviewPlugin.close();
 
-    // flutterWebviewPlugin.onUrlChanged.listen((String url) {
-    //   print("onUrlChanged: $url");
-    // });
+    flutterWebviewPlugin.onUrlChanged.listen((String url) {
+      print("onUrlChanged: $url");
+    });
 
     _onDestroy = flutterWebviewPlugin.onDestroy.listen((_) {
       if (mounted) {
