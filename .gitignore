@@ -13,3 +13,4 @@ build/
 key.jks
 key.properties
 ios/Runner.xcworkspace/xcshareddata
+.idea
