@@ -227,7 +227,7 @@ packages:
       name: petitparser
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.7.7"
+    version: "2.1.1"
   plugin:
     dependency: transitive
     description:
@@ -358,7 +358,7 @@ packages:
       name: url_launcher
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.0.1"
+    version: "4.2.0+3"
   utf:
     dependency: transitive
     description:
@@ -400,14 +400,14 @@ packages:
       name: webfeed
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.0"
+    version: "0.4.2"
   xml:
     dependency: transitive
     description:
       name: xml
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.1"
+    version: "3.2.5"
   yaml:
     dependency: transitive
     description:
